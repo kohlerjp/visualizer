@@ -1,0 +1,181 @@
+<head>
+<style type="text/css">
+.ball
+{
+	position: absolute;
+	height: 40px;
+	width: 40px;
+	top:80%;
+	left: 45%;
+	border-radius:80px;
+	background: -webkit-radial-gradient(40px 40px, circle, #5cabff, #000);
+
+}
+#line{
+	position: absolute;
+	top:86%;
+	height: 4px;
+	background-color: black;
+	width: 100%;
+
+}
+.ball:hover{
+	background: -webkit-radial-gradient(40px 40px, circle, green, red);
+}
+.bodyColor1{
+	background: -webkit-linear-gradient(top, #a90329 0%,#8f0222 44%,#6d0019 100%); /* Chrome10+,Safari5.1+ */
+}
+.bodyColor2{
+	background: -webkit-linear-gradient(top, green 0%,black 100%); /* Chrome10+,Safari5.1+ */
+}
+.bodyColor3{
+	background: -webkit-linear-gradient(top, white 0%,blue 100%); /* Chrome10+,Safari5.1+ */
+}
+.bodyColor4{
+	background: -webkit-linear-gradient(-45deg, rgba(246,230,180,1) 15%,rgba(237,144,23,1) 100%); 
+}
+.bodyColor5{
+	background: -webkit-linear-gradient(top, #fcfff4 0%,#dfe5d7 40%,#b3bead 100%);
+}
+.bodyColor6{
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(180,221,180,1) 0%,rgba(131,199,131,1) 17%,rgba(82,177,82,1) 33%,rgba(0,138,0,1) 67%,rgba(0,87,0,1) 83%,rgba(0,36,0,1) 100%);
+}
+.ballColor1{
+	background: -webkit-radial-gradient(40px 40px, circle, #5cabff, #000);
+}
+.ballColor2{
+	background: black
+}
+
+
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+<script type="text/javascript" src="dancer.min.js"> </script>
+<script type="text/javascript">
+$(document).ready(function(){
+	for (var i=1;i<=20;i++)
+	{ 
+		var myElem = "b" + i;
+		var ballWidth = (i * 10) / 2 + "%";
+		document.getElementById(myElem).style.left=ballWidth;
+	}
+   var
+    audio  = document.getElementById("kid"),
+    dancer = new Dancer(),
+    kick = dancer.createKick({
+      threshold: .05,
+      decay:.04,
+      onKick: function ( mag ) {
+        console.log('Kick!');
+        var freq = dancer.getSpectrum();
+        for (var j=1;j<=20;j++)
+		{
+			 var myElem = "#b" + j;
+          	 var ball_height = myfunc((j * 15),freq)
+        	$(myElem).animate({top:ball_height},"fast");
+    	}
+
+
+      },
+      offKick: function ( mag ) {
+      }
+    });
+    function myfunc(where,freq){
+    	var mine = 80 - (freq[where] * 1500)
+        return (mine + "%");
+
+    }
+    bigKick = dancer.createKick({
+      threshold: .5,
+      onKick: function ( mag ) {
+      	var rand = Math.floor((Math.random()*6)+1);
+      	$("body").removeClass("bodyColor1");
+      	$("body").removeClass("bodyColor2");
+      	$("body").removeClass("bodyColor3");
+      	$("body").removeClass("bodyColor4");
+      	$("body").removeClass("bodyColor5");
+      	$("body").removeClass("bodyColor6");
+
+
+
+
+        $("body").addClass("bodyColor" + rand);
+
+
+      },
+      offKick: function ( mag ) {
+      }
+    });
+    function myfunc(where,freq){
+    	var mine = 80 - (freq[where] * 1500)
+        return (mine + "%");
+
+    }
+    ballKick = dancer.createKick({
+      threshold: .3,
+      onKick: function ( mag ) {
+        var rand = Math.floor((Math.random()*2)+1);
+        $(".ball").toggleClass("ballColor" + rand);
+
+
+      },
+      offKick: function ( mag ) {
+      }
+    });
+    function myfunc(where,freq){
+    	var mine = 80 - (freq[where] * 1000)
+        return (mine + "%");
+
+    }
+
+  // Let's turn this kick on right away
+  kick.on();
+  bigKick.on();
+  ballKick.on();
+
+
+  dancer.onceAt( 10, function() {
+    // Let's set up some things once at 10 seconds
+  }).load( audio ); // And finally, lets pass in our Audio element to load
+
+  dancer.play();
+});
+
+</script>
+
+
+
+
+
+</head>
+
+<body>
+	<audio controls id="kid">
+  <source src="bas.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+	<div id = "b1" class="ball"></div>
+	<div id = "b2" class="ball"></div>
+	<div id = "b3" class="ball"></div>
+	<div id = "b4" class="ball"></div>
+	<div id = "b5" class="ball"></div>
+	<div id = "b6" class="ball"></div>
+	<div id = "b7" class="ball"></div>
+	<div id = "b8" class="ball"></div>
+	<div id = "b9" class="ball"></div>
+	<div id = "b10" class="ball"></div>
+	<div id = "b11" class="ball"></div>
+	<div id = "b12" class="ball"></div>
+	<div id = "b13" class="ball"></div>
+	<div id = "b14" class="ball"></div>
+	<div id = "b15" class="ball"></div>
+	<div id = "b16" class="ball"></div>
+	<div id = "b17" class="ball"></div>
+	<div id = "b18" class="ball"></div>
+	<div id = "b19" class="ball"></div>
+	<div id = "b20" class="ball"></div>
+	<div id="line"></div>
+	
+
+</body>
